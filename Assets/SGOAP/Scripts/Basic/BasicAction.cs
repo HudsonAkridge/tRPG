@@ -9,6 +9,7 @@ namespace SGoap
     {
         public AgentBasicData AgentData;
         public Transform RootTransformObject;
+        public Animator RootAnimator;
 
         public virtual float StaggerTime => 0;
 
@@ -17,6 +18,7 @@ namespace SGoap
             //We assume we put a GOAP_Agent > Actions > ActionName
             // set of objects in our hierarchy
             RootTransformObject = transform?.parent?.parent?.parent;
+            RootAnimator = this.GetComponentInParent<Animator>();
         }
 
         public override bool PrePerform() => !Cooldown.Active;

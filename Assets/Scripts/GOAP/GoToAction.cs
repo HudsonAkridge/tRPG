@@ -8,19 +8,20 @@ public class GoToAction : BasicAction
     public Transform Target;
 
     public float Range = 1;
-    public float MoveSpeed = 2;
-
+    public float MoveSpeed = 5;
     public float DistanceToTarget => Vector3.Distance(Target.position, RootTransformObject?.position ?? transform.position);
-
-    private void Update()
+    
+    public void Update()
     {
         if (DistanceToTarget <= Range)
         {
             States.SetState("InAttackRange", 1);
+            RootAnimator.SetBool("IsAttacking", true);
         }
         else
         {
             States.RemoveState("InAttackRange");
+            RootAnimator.SetBool("IsAttacking", false);
         }
     }
 
