@@ -20,6 +20,12 @@ namespace SGoap
             get => Agent.transform.position;
             set => Agent.transform.position = value;
         }
+        
+        public Vector3 ParentPosition
+        {
+            get => Agent.transform.parent.position;
+            set => Agent.transform.parent.position = value;
+        }
 
         public void LookAt(Vector3 position)
         {
