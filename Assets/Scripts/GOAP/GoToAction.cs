@@ -10,11 +10,24 @@ public class GoToAction : BasicAction
     public float Range = 1;
     public float MoveSpeed = 2;
 
+    public float DistanceToTarget => Vector3.Distance(Target.position, RootTransformObject?.position ?? transform.position);
+
+    private void Update()
+    {
+        if (DistanceToTarget <= Range)
+        {
+            States.SetState("InAttackRange", 1);
+        }
+        else
+        {
+            States.RemoveState("InAttackRange");
+        }
+    }
+
     public override EActionStatus Perform()
     {
         AgentData.Target = Target;
-        var distanceToTarget = Vector3.Distance(Target.position, RootTransformObject?.position ?? transform.position);
-        if (distanceToTarget <= Range)
+        if (DistanceToTarget <= Range)
         {
             return EActionStatus.Success;
         }
