@@ -7,11 +7,11 @@ public class AttackAction : BasicAction
     public override float CooldownTime => 1;
 
     private string _rootObjectName;
-    public void Start()
+    public override void Start()
     {
-        //We assume we put a GOAP_Agent > Actions > ActionName
-        // set of objects in our hierarchy
-        _rootObjectName= transform?.parent?.parent?.parent?.name ?? "Unknown";
+        base.Start();
+     
+        _rootObjectName = RootTransformObject.name ?? "Unknown";
     }
 
     public override EActionStatus Perform()

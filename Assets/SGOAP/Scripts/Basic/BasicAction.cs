@@ -1,4 +1,6 @@
-﻿namespace SGoap
+﻿using UnityEngine;
+
+namespace SGoap
 {
     /// <summary>
     /// A very basic action that is paired with basic Agent data with it.
@@ -6,8 +8,17 @@
     public abstract class BasicAction : Action, IDataBind<AgentBasicData>
     {
         public AgentBasicData AgentData;
+        public Transform RootTransformObject;
 
         public virtual float StaggerTime => 0;
+
+        public virtual void Start()
+        {
+            //We assume we put a GOAP_Agent > Actions > ActionName
+            // set of objects in our hierarchy
+            RootTransformObject = transform?.parent?.parent?.parent;
+        }
+
         public override bool PrePerform() => !Cooldown.Active;
 
         public override bool PostPerform()
