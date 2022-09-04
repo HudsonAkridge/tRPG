@@ -1,11 +1,13 @@
+- Figure out why new clones of the repo have no materials, shaders, assets, etc.
 - Build demo scene
     - [DONE] Terrain
     - [DONE] Place monster and character
     - [DONE] Add A* Pathfinding to drive direction towards objectives
     - [DONE] Add attack goal
+    - [DONE] Fix the GOAP goal switching mechanic after attack when target moves
     - Add Sensors to detect each other/to add to target
-    - Fix the GOAP goal switching mechanic after attack when target moves
 - MVP2
+    - Add UI for swapping actions on the GOAP of the character based on user preferences.
     - Add multiple GOAP goals
         - Flee mechanic/goal for PCs, not NPCs
         - Create "Wander/Explore" goal for both NPC and PC characters
