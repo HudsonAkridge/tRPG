@@ -1,7 +1,16 @@
 - Build demo scene
     - [DONE] Terrain
     - [DONE] Place monster and character
-    - [DONE] Create "Wander/Explore" goal
     - [DONE] Add A* Pathfinding to drive direction towards objectives
-    - Add Sensors to detect each other
     - [DONE] Add attack goal
+    - Add Sensors to detect each other/to add to target
+    - Fix the GOAP goal switching mechanic after attack when target moves
+- MVP2
+    - Add multiple GOAP goals
+        - Flee mechanic/goal for PCs, not NPCs
+        - Create "Wander/Explore" goal for both NPC and PC characters
+        - "Cheese" goal for PCs so that they try and achieve an exit if all the targets are eliminated or not within range
+    - Add multiple NPC units
+    - Add non-combat based mechanic, e.g. picking up an item that's on the ground in some capacity.
+    - Add the movement animation to the creatures.
+    - Add a cheese for the PC as a goal

@@ -16,6 +16,12 @@ public class GoToAction : BasicAction
     private int _currentWaypoint = 0;
     private int _nextWaypointDistance = 3;
 
+    private void ResetPathfinding()
+    {
+        _currentWaypoint = 0;
+        _pathToTarget = null;
+    }
+
     public override void Start()
     {
         base.Start();
@@ -54,13 +60,11 @@ public class GoToAction : BasicAction
             return EActionStatus.Success;
         }
 
-        //var directionToTarget = (Target.position - RootTransformObject?.position ?? transform.position).normalized;
-        //AgentData.ParentPosition += directionToTarget * Time.deltaTime * MoveSpeed;
-
         //Check if we had a last targeted position and need a new path.
-        if (_lastTargetPosition != Target.position)
+        if (_lastTargetPosition != Target.transform.position)
         {
-            _lastTargetPosition = Target.position;
+            _lastTargetPosition = Target.transform.position;
+            ResetPathfinding();
             AStarSeeker.StartPath(RootTransformObject.position, Target.position, PathfinderCallback);
         }
 
@@ -70,12 +74,15 @@ public class GoToAction : BasicAction
             var distanceToWaypoint = 0f;
             while (!reachedEndOfPath)
             {
-                distanceToWaypoint = Vector3.Distance(RootTransformObject.position, _pathToTarget.vectorPath[_currentWaypoint]);
+                distanceToWaypoint = Vector3.Distance(
+                    RootTransformObject.position,
+                    _pathToTarget.vectorPath[_currentWaypoint]);
                 if (distanceToWaypoint >= _nextWaypointDistance)
                 {
                     break;
                 }
 
+                //Are we at the end of our path yet?
                 if (_currentWaypoint + 1 < _pathToTarget.vectorPath.Count)
                 {
                     _currentWaypoint++;
