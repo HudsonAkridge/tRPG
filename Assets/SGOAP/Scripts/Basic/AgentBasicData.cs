@@ -1,4 +1,5 @@
-﻿using SGoap;
+﻿using System;
+using SGoap;
 using UnityEngine;
 
 namespace SGoap
@@ -20,11 +21,26 @@ namespace SGoap
             get => Agent.transform.position;
             set => Agent.transform.position = value;
         }
-        
+
+        private Transform _parentTransform;
+
+        private void InitializeParentTransform()
+        {
+            _parentTransform ??= Agent.GetComponentInParent<AIMetadata>().transform;
+        }
+
         public Vector3 ParentPosition
         {
-            get => Agent.transform.parent.position;
-            set => Agent.transform.parent.position = value;
+            get
+            {
+                InitializeParentTransform();
+                return _parentTransform.position;
+            }
+            set
+            {
+                InitializeParentTransform();
+                _parentTransform.position = value;
+            }
         }
 
         public void LookAt(Vector3 position)

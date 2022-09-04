@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pathfinding;
+using UnityEngine;
 
 namespace SGoap
 {
@@ -9,7 +10,9 @@ namespace SGoap
     {
         public AgentBasicData AgentData;
         public Transform RootTransformObject;
+        public AIMetadata RootAIMetadata;
         public Animator RootAnimator;
+        public Seeker AISeeker;
 
         public virtual float StaggerTime => 0;
 
@@ -17,8 +20,11 @@ namespace SGoap
         {
             //We assume we put a GOAP_Agent > Actions > ActionName
             // set of objects in our hierarchy
-            RootTransformObject = transform?.parent?.parent?.parent;
-            RootAnimator = this.GetComponentInParent<Animator>();
+            RootAIMetadata = GetComponentInParent<AIMetadata>();
+            RootTransformObject = RootAIMetadata.transform;
+
+            RootAnimator = GetComponentInParent<Animator>();
+            AISeeker = GetComponentInParent<Seeker>();
         }
 
         public override bool PrePerform() => !Cooldown.Active;
