@@ -91,7 +91,7 @@ public class GoToAction : BasicAction
             
             // Direction to the next waypoint
             // Normalize it so that it has a length of 1 world unit
-            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - transform.position).normalized;
+            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - RootTransformObject.position).normalized;
             // Multiply the direction by our desired speed to get a velocity
             var velocity = directionToGo * MoveSpeed * speedFactor;
 
