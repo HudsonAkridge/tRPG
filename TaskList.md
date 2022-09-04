@@ -2,6 +2,6 @@
     - [DONE] Terrain
     - [DONE] Place monster and character
     - [DONE] Create "Wander/Explore" goal
-    - Add A* Pathfinding to drive direction towards objectives
+    - [DONE] Add A* Pathfinding to drive direction towards objectives
     - Add Sensors to detect each other
-    - Add attack goal
+    - [DONE] Add attack goal
