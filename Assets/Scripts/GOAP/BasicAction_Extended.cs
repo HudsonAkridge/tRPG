@@ -9,16 +9,15 @@ namespace SGoap
         public Transform RootTransformObject;
         public AIMetadata RootAIMetadata;
         public Animator RootAnimator;
-        public Seeker PathfinderSeeker;
-
-
+        public Seeker AStarSeeker;
+        
 
         public virtual void Start()
         {
             RootAIMetadata = GetComponentInParent<AIMetadata>();
             RootTransformObject = RootAIMetadata.transform;
             RootAnimator = GetComponentInParent<Animator>();
-            PathfinderSeeker = GetComponentInParent<Seeker>();
+            AStarSeeker = GetComponentInParent<Seeker>();
         }
     }
 }

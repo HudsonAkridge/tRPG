@@ -11,9 +11,7 @@ namespace SGoap
         public AgentBasicData AgentData;
         public virtual float StaggerTime => 0;
 
-       
-
-        public override bool PrePerform() => !Cooldown.Active;
+       public override bool PrePerform() => !Cooldown.Active;
 
         public override bool PostPerform()
         {
