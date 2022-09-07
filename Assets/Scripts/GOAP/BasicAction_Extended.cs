@@ -15,7 +15,7 @@ namespace SGoap
         public virtual void Start()
         {
             RootAIMetadata = GetComponentInParent<AIMetadata>();
-            RootTransformObject = RootAIMetadata.transform;
+            RootTransformObject = RootAIMetadata?.transform;
             RootAnimator = GetComponentInParent<Animator>();
             AStarSeeker = GetComponentInParent<Seeker>();
         }
