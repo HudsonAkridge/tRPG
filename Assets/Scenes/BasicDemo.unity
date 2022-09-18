@@ -1196,11 +1196,7 @@ MonoBehaviour:
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  RootTransformObject: {fileID: 0}
-  RootAIMetadata: {fileID: 0}
-  RootAnimator: {fileID: 0}
-  AStarSeeker: {fileID: 0}
-  Target: {fileID: 1481185740}
+  CurrentTarget: {fileID: 0}
   Range: 1
   MoveSpeed: 10
 --- !u!114 &1034148287
@@ -1662,6 +1658,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5352958571798197664, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5691243874327788079, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1768,11 +1768,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
---- !u!4 &1481185740 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4684403152539725594, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-  m_PrefabInstance: {fileID: 1398335883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1481185742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2163,10 +2158,6 @@ MonoBehaviour:
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  RootTransformObject: {fileID: 0}
-  RootAIMetadata: {fileID: 0}
-  RootAnimator: {fileID: 0}
-  AStarSeeker: {fileID: 0}
 --- !u!114 &1899614192
 MonoBehaviour:
   m_ObjectHideFlags: 0

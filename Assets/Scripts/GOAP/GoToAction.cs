@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class GoToAction : AnimationAction
 {
-    public Transform CurrentTarget;
-
     public float Range = 1;
     public float MoveSpeed = 5;
-    public float DistanceToTarget => Vector3.Distance(CurrentTarget.position, AgentData.RootTransformObject?.position ?? transform.position);
     private Vector3 _lastTargetPosition;
     private Path _pathToTarget;
     private int _currentWaypoint = 0;
@@ -20,6 +17,8 @@ public class GoToAction : AnimationAction
         _currentWaypoint = 0;
         _pathToTarget = null;
     }
+
+    public float GetDistanceToTarget() => Vector3.Distance(AgentData.CurrentTarget.transform.position, AgentData.RootTransformObject?.position ?? transform.position);
 
     public override void Start()
     {
@@ -35,7 +34,14 @@ public class GoToAction : AnimationAction
 
     public void Update()
     {
-        if (DistanceToTarget <= Range)
+        if (AgentData.CurrentTarget == null)
+        {
+            //We can't do anything here
+            return;
+        }
+
+        //Goto
+        if (GetDistanceToTarget() <= Range)
         {
             States.SetState("InAttackRange", 1);
         }
@@ -51,18 +57,24 @@ public class GoToAction : AnimationAction
     /// <returns></returns>
     public override EActionStatus Perform()
     {
-        AgentData.Target = CurrentTarget;
-        if (DistanceToTarget <= Range)
+        if (AgentData.CurrentTarget is null)
+        {
+            Debug.Log("No Target found when attempting to GoToAction.");
+            return EActionStatus.Failed;
+        }
+
+        //AgentData.Target = CurrentTarget;
+        if (GetDistanceToTarget() <= Range)
         {
             return EActionStatus.Success;
         }
 
         //Check if we had a last targeted position and need a new path.
-        if (_lastTargetPosition != CurrentTarget.transform.position)
+        if (_lastTargetPosition != AgentData.CurrentTarget.transform.position)
         {
-            _lastTargetPosition = CurrentTarget.transform.position;
+            _lastTargetPosition = AgentData.CurrentTarget.transform.position;
             ResetPathfinding();
-            AgentData.AStarSeeker.StartPath(AgentData.RootTransformObject.position, CurrentTarget.position, PathfinderCallback);
+            AgentData.AStarSeeker.StartPath(AgentData.RootTransformObject.position, AgentData.CurrentTarget.transform.position, PathfinderCallback);
         }
 
         if (_pathToTarget is not null)
@@ -92,7 +104,7 @@ public class GoToAction : AnimationAction
             // Slow down smoothly upon approaching the end of the path
             // This value will smoothly go from 1 to 0 as the agent approaches the last waypoint in the path.
             var speedFactor = reachedEndOfPath ? Mathf.Sqrt(distanceToWaypoint / _nextWaypointDistance) : 1f;
-            
+
             // Direction to the next waypoint
             // Normalize it so that it has a length of 1 world unit
             var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - AgentData.RootTransformObject.position).normalized;

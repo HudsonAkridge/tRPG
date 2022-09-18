@@ -15,6 +15,7 @@ namespace SGoap
         public Transform RootTransformObject;
         public AIMetadata RootAIMetadata;
         public Seeker AStarSeeker;
+        public GameObject CurrentTarget;
 
         private void InitializeParentTransform()
         {
