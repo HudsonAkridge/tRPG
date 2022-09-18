@@ -27,7 +27,6 @@ namespace SGoap
     public abstract class CoroutineAction : BasicAction
     {
         public CoroutineActionData CoroutineData;
-
         public System.Action OnFirstPerform;
 
         public override float CooldownTime => CoroutineData.CooldownRangeValue.GetRandomValue();

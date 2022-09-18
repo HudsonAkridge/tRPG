@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using Assets.SGOAP.Scripts.Basic;
+using UnityEngine;
 
 namespace SGoap
 {
     public abstract class SetAnimatorPropertyBase<T> : MonoBehaviour
     {
-        public CoroutineAction Action;
+        public AnimationAction Action;
         public T Property;
 
         private void OnValidate()
         {
-            Action = GetComponent<CoroutineAction>();
+            Action = GetComponent<AnimationAction>();
         }
 
         private void Awake()

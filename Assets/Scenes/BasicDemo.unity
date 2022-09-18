@@ -1125,6 +1125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1034148285}
   - component: {fileID: 1034148286}
+  - component: {fileID: 1034148287}
   m_Layer: 7
   m_Name: GoTo
   m_TagString: Untagged
@@ -1188,6 +1189,21 @@ MonoBehaviour:
   Target: {fileID: 1481185740}
   Range: 1
   MoveSpeed: 10
+--- !u!114 &1034148287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034148284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596ef86f1f0467f4e9284e06bb95467d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Action: {fileID: 1034148286}
+  Property:
+    Name: Moving
 --- !u!1 &1040543222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,6 +2016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1899614190}
   - component: {fileID: 1899614191}
+  - component: {fileID: 1899614192}
   m_Layer: 7
   m_Name: Attack
   m_TagString: Untagged
@@ -2060,3 +2077,18 @@ MonoBehaviour:
   RootAIMetadata: {fileID: 0}
   RootAnimator: {fileID: 0}
   AStarSeeker: {fileID: 0}
+--- !u!114 &1899614192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899614189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596ef86f1f0467f4e9284e06bb95467d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Action: {fileID: 1899614191}
+  Property:
+    Name: Attacking

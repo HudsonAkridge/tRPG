@@ -1,7 +1,8 @@
+using Assets.SGOAP.Scripts.Basic;
 using SGoap;
 using UnityEngine;
 
-public class AttackAction : BasicAction
+public class AttackAction : AnimationAction
 {
     //1 second CD time
     public override float CooldownTime => 1;

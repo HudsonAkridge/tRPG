@@ -1,10 +1,9 @@
 using SGoap;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.SGOAP.Scripts.Basic;
 using Pathfinding;
 using UnityEngine;
 
-public class GoToAction : BasicAction
+public class GoToAction : AnimationAction
 {
     public Transform Target;
 
@@ -39,12 +38,10 @@ public class GoToAction : BasicAction
         if (DistanceToTarget <= Range)
         {
             States.SetState("InAttackRange", 1);
-            RootAnimator.SetBool("IsAttacking", true);
         }
         else
         {
             States.RemoveState("InAttackRange");
-            RootAnimator.SetBool("IsAttacking", false);
         }
     }
 

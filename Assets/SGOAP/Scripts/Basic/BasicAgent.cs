@@ -24,7 +24,7 @@ namespace SGoap
 
         public void Initialize()
         {
-            var animator = GetComponentInChildren<Animator>();
+            var animator = GetComponentInChildren<Animator>() ?? GetComponentInParent<Animator>();
             _effectsController = GetComponentInChildren<EffectController>();
 
             Data = new AgentBasicData
