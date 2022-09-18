@@ -12,7 +12,7 @@ public class AttackAction : AnimationAction
     {
         base.Start();
      
-        _rootObjectName = RootTransformObject.name ?? "Unknown";
+        _rootObjectName = AgentData.RootTransformObject.name ?? "Unknown";
     }
 
     public override EActionStatus Perform()

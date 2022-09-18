@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class GoToAction : AnimationAction
 {
-    public Transform Target;
+    public Transform CurrentTarget;
 
     public float Range = 1;
     public float MoveSpeed = 5;
-    public float DistanceToTarget => Vector3.Distance(Target.position, RootTransformObject?.position ?? transform.position);
+    public float DistanceToTarget => Vector3.Distance(CurrentTarget.position, AgentData.RootTransformObject?.position ?? transform.position);
     private Vector3 _lastTargetPosition;
     private Path _pathToTarget;
     private int _currentWaypoint = 0;
@@ -25,12 +25,12 @@ public class GoToAction : AnimationAction
     {
         base.Start();
 
-        AStarSeeker.pathCallback += PathfinderCallback;
+        AgentData.AStarSeeker.pathCallback += PathfinderCallback;
     }
 
     public void OnDisable()
     {
-        AStarSeeker.pathCallback -= PathfinderCallback;
+        AgentData.AStarSeeker.pathCallback -= PathfinderCallback;
     }
 
     public void Update()
@@ -51,18 +51,18 @@ public class GoToAction : AnimationAction
     /// <returns></returns>
     public override EActionStatus Perform()
     {
-        AgentData.Target = Target;
+        AgentData.Target = CurrentTarget;
         if (DistanceToTarget <= Range)
         {
             return EActionStatus.Success;
         }
 
         //Check if we had a last targeted position and need a new path.
-        if (_lastTargetPosition != Target.transform.position)
+        if (_lastTargetPosition != CurrentTarget.transform.position)
         {
-            _lastTargetPosition = Target.transform.position;
+            _lastTargetPosition = CurrentTarget.transform.position;
             ResetPathfinding();
-            AStarSeeker.StartPath(RootTransformObject.position, Target.position, PathfinderCallback);
+            AgentData.AStarSeeker.StartPath(AgentData.RootTransformObject.position, CurrentTarget.position, PathfinderCallback);
         }
 
         if (_pathToTarget is not null)
@@ -72,7 +72,7 @@ public class GoToAction : AnimationAction
             while (!reachedEndOfPath)
             {
                 distanceToWaypoint = Vector3.Distance(
-                    RootTransformObject.position,
+                    AgentData.RootTransformObject.position,
                     _pathToTarget.vectorPath[_currentWaypoint]);
                 if (distanceToWaypoint >= _nextWaypointDistance)
                 {
@@ -95,7 +95,7 @@ public class GoToAction : AnimationAction
             
             // Direction to the next waypoint
             // Normalize it so that it has a length of 1 world unit
-            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - RootTransformObject.position).normalized;
+            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - AgentData.RootTransformObject.position).normalized;
             // Multiply the direction by our desired speed to get a velocity
             var velocity = directionToGo * MoveSpeed * speedFactor;
 
