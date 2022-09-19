@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class WanderAction : AnimationAction
 {
-    public float MoveSpeed = 2;
+    public float MoveSpeed = 5;
     private Path _pathToWander;
 
     private int _currentWaypoint = 0;
     private int _nextWaypointDistance = 3;
     private bool _hasFoundEnemy;
     private Vector3 _startingPosition;
+    private bool _isCalculatingPath;
+    private bool _forceCreateNewPath;
 
     private void ResetPathfinding()
     {
         _currentWaypoint = 0;
         _pathToWander = null;
+        _forceCreateNewPath = false;
     }
 
     public void Start()
@@ -48,13 +51,20 @@ public class WanderAction : AnimationAction
     public override EActionStatus Perform()
     {
         //Check if we need to create a new wandering path from our starting position (so we don't wander too far)
-        if (_pathToWander is null)
+        if (_forceCreateNewPath ||(_pathToWander is null && !_isCalculatingPath))
         {
             ResetPathfinding();
-            var randomPath = RandomPath.Construct(_startingPosition, 5000);
+            var randomPath = RandomPath.Construct(OurPosition, 50000);
             randomPath.spread = 1000;
 
             OurAStarSeeker.StartPath(randomPath, PathfinderCallback);
+            _isCalculatingPath = true;
+            return EActionStatus.Running;
+        }
+
+        //We're already calculating the path but it hasn't finished yet
+        if (_pathToWander is null)
+        {
             return EActionStatus.Running;
         }
 
@@ -78,8 +88,11 @@ public class WanderAction : AnimationAction
             else
             {
                 reachedEndOfPath = true;
+                _forceCreateNewPath = true;
+                //TODO: Find a target along the way to end early
             }
         }
+
         // Slow down smoothly upon approaching the end of the path
         // This value will smoothly go from 1 to 0 as the agent approaches the last waypoint in the path.
         var speedFactor = reachedEndOfPath ? Mathf.Sqrt(distanceToWaypoint / _nextWaypointDistance) : 1f;
@@ -104,5 +117,6 @@ public class WanderAction : AnimationAction
         }
 
         _pathToWander = pathfinderResult;
+        _isCalculatingPath = false;
     }
 }
