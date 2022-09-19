@@ -11,6 +11,7 @@ public class WanderAction : AnimationAction
     private int _currentWaypoint = 0;
     private int _nextWaypointDistance = 3;
     private bool _hasFoundEnemy;
+    private Vector3 _startingPosition;
 
     private void ResetPathfinding()
     {
@@ -21,6 +22,7 @@ public class WanderAction : AnimationAction
     public void Start()
     {
         AgentData.OurAStarSeeker.pathCallback += PathfinderCallback;
+        _startingPosition = OurPosition;
     }
 
     public void OnDisable()
@@ -45,11 +47,11 @@ public class WanderAction : AnimationAction
     /// <returns></returns>
     public override EActionStatus Perform()
     {
-        //Check if we need to create a new wandering path
+        //Check if we need to create a new wandering path from our starting position (so we don't wander too far)
         if (_pathToWander is null)
         {
             ResetPathfinding();
-            var randomPath = RandomPath.Construct(OurPosition, 5000);
+            var randomPath = RandomPath.Construct(_startingPosition, 5000);
             randomPath.spread = 1000;
 
             OurAStarSeeker.StartPath(randomPath, PathfinderCallback);
