@@ -18,18 +18,16 @@ public class GoToAction : AnimationAction
         _pathToTarget = null;
     }
 
-    public float GetDistanceToTarget() => Vector3.Distance(AgentData.CurrentTarget.transform.position, AgentData.RootTransformObject?.position ?? transform.position);
+    public float GetDistanceToTarget() => Vector3.Distance(AgentData.OurCurrentTargetPosition, OurPosition);
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
-        AgentData.AStarSeeker.pathCallback += PathfinderCallback;
+        AgentData.OurAStarSeeker.pathCallback += PathfinderCallback;
     }
 
     public void OnDisable()
     {
-        AgentData.AStarSeeker.pathCallback -= PathfinderCallback;
+        AgentData.OurAStarSeeker.pathCallback -= PathfinderCallback;
     }
 
     public void Update()
@@ -70,11 +68,11 @@ public class GoToAction : AnimationAction
         }
 
         //Check if we had a last targeted position and need a new path.
-        if (_lastTargetPosition != AgentData.CurrentTarget.transform.position)
+        if (_lastTargetPosition != AgentData.OurCurrentTargetPosition)
         {
-            _lastTargetPosition = AgentData.CurrentTarget.transform.position;
+            _lastTargetPosition = AgentData.OurCurrentTargetPosition;
             ResetPathfinding();
-            AgentData.AStarSeeker.StartPath(AgentData.RootTransformObject.position, AgentData.CurrentTarget.transform.position, PathfinderCallback);
+            AgentData.OurAStarSeeker.StartPath(OurPosition, AgentData.OurCurrentTargetPosition, PathfinderCallback);
         }
 
         if (_pathToTarget is not null)
@@ -84,7 +82,7 @@ public class GoToAction : AnimationAction
             while (!reachedEndOfPath)
             {
                 distanceToWaypoint = Vector3.Distance(
-                    AgentData.RootTransformObject.position,
+                    AgentData.OurRootTransform.position,
                     _pathToTarget.vectorPath[_currentWaypoint]);
                 if (distanceToWaypoint >= _nextWaypointDistance)
                 {
@@ -107,11 +105,11 @@ public class GoToAction : AnimationAction
 
             // Direction to the next waypoint
             // Normalize it so that it has a length of 1 world unit
-            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - AgentData.RootTransformObject.position).normalized;
+            var directionToGo = (_pathToTarget.vectorPath[_currentWaypoint] - OurPosition).normalized;
             // Multiply the direction by our desired speed to get a velocity
             var velocity = directionToGo * MoveSpeed * speedFactor;
 
-            AgentData.ParentPosition += velocity * Time.deltaTime;
+            OurPosition += velocity * Time.deltaTime;
         }
 
         return EActionStatus.Running;

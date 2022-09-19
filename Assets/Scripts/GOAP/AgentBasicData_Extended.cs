@@ -10,36 +10,27 @@ namespace SGoap
 {
     public partial class AgentBasicData
     {
-        private Transform _parentTransform;
         public ST.Sensor Sensor;
-        public Transform RootTransformObject;
-        public AIMetadata RootAIMetadata;
-        public Seeker AStarSeeker;
+        public Transform OurRootTransform;
+        public AIMetadata OurAiMetadata;
+        public Seeker OurAStarSeeker;
         public GameObject CurrentTarget;
-
-        private void InitializeParentTransform()
+        public Vector3 OurCurrentTargetPosition
         {
-            _parentTransform ??= Agent.GetComponentInParent<AIMetadata>().transform;
+            get => CurrentTarget.transform.position;
+            set => CurrentTarget.transform.position = value;
         }
 
-        public Vector3 ParentPosition
+        protected Vector3 OurPosition
         {
-            get
-            {
-                InitializeParentTransform();
-                return _parentTransform.position;
-            }
-            set
-            {
-                InitializeParentTransform();
-                _parentTransform.position = value;
-            }
+            get => OurRootTransform.position;
+            set => OurRootTransform.position = value;
         }
 
         public List<GameObject> GetAvailableTargetsByDistance([CanBeNull] Predicate<ST.Signal> optionalFilter)
         {
             Predicate<ST.Signal> defaultPredicate = signal =>
-                signal.Object.layer is (int) Layers.Characters or (int) Layers.Monsters or (int) Layers.Interactables ||
+                signal.Object.layer is (int)Layers.Characters or (int)Layers.Monsters or (int)Layers.Interactables ||
                 signal.Object.tag.Equals("Player", StringComparison.OrdinalIgnoreCase);
 
             return Sensor.GetDetectionsByDistance(optionalFilter ?? defaultPredicate);

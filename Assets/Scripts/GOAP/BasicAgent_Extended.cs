@@ -10,10 +10,10 @@ namespace SGoap
         public AgentBasicData AddExtendedData(AgentBasicData agentBasicData)
         {
             agentBasicData.Sensor = GetComponentInParent<ST.Sensor>();
-            agentBasicData.RootAIMetadata = GetComponentInParent<AIMetadata>();
-            agentBasicData.RootTransformObject = agentBasicData.RootAIMetadata?.transform;
+            agentBasicData.OurAiMetadata = GetComponentInParent<AIMetadata>();
+            agentBasicData.OurRootTransform = agentBasicData.OurAiMetadata?.transform;
             agentBasicData.Animator ??= GetComponentInParent<Animator>();
-            agentBasicData.AStarSeeker = GetComponentInParent<Seeker>();
+            agentBasicData.OurAStarSeeker = GetComponentInParent<Seeker>();
 
             return agentBasicData;
         }

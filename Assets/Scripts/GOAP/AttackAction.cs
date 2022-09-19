@@ -8,11 +8,9 @@ public class AttackAction : AnimationAction
     public override float CooldownTime => 1;
 
     private string _rootObjectName;
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-     
-        _rootObjectName = AgentData.RootTransformObject.name ?? "Unknown";
+        _rootObjectName = OurRootTransform.name ?? "Unknown";
     }
 
     public override EActionStatus Perform()
