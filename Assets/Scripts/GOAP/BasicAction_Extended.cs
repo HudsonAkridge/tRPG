@@ -6,18 +6,14 @@ namespace SGoap
     //This is a custom class used to extend the BasicAction template that comes with the SGOAP library
     public abstract partial class BasicAction
     {
-        public Transform RootTransformObject;
-        public AIMetadata RootAIMetadata;
-        public Animator RootAnimator;
-        public Seeker AStarSeeker;
-        
+        protected Transform OurRootTransform => AgentData.OurRootTransform;
 
-        public virtual void Start()
+        protected Vector3 OurPosition
         {
-            RootAIMetadata = GetComponentInParent<AIMetadata>();
-            RootTransformObject = RootAIMetadata?.transform;
-            RootAnimator = GetComponentInParent<Animator>();
-            AStarSeeker = GetComponentInParent<Seeker>();
+            get => OurRootTransform.position;
+            set => OurRootTransform.position = value;
         }
+
+        protected Seeker OurAStarSeeker => AgentData.OurAStarSeeker;
     }
 }

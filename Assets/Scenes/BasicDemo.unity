@@ -1129,6 +1129,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &834646013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 834646014}
+  - component: {fileID: 834646016}
+  - component: {fileID: 834646015}
+  m_Layer: 7
+  m_Name: Wander
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834646014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834646013}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1747901967}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &834646015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834646013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596ef86f1f0467f4e9284e06bb95467d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Action: {fileID: 834646016}
+  Property:
+    Name: Moving
+--- !u!114 &834646016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834646013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25d167f605f96249bfad20733e68eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: GoTo
+  Cost: 1
+  CostEvaluator: {fileID: 0}
+  UsableEvaluator: {fileID: 0}
+  AbortEvaluator: {fileID: 0}
+  PreConditions:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: InAttackRange
+    Operator: 4
+  AfterEffects:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: GoToTarget
+    Operator: 0
+  CostEvaluationType: 0
+  AchievableEvaluationType: 0
+  AbortEvaluatorType: 0
+  Range: 1
+  MoveSpeed: 10
 --- !u!1 &1034148284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,11 +1280,6 @@ MonoBehaviour:
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  RootTransformObject: {fileID: 0}
-  RootAIMetadata: {fileID: 0}
-  RootAnimator: {fileID: 0}
-  AStarSeeker: {fileID: 0}
-  Target: {fileID: 1481185740}
   Range: 1
   MoveSpeed: 10
 --- !u!114 &1034148287
@@ -1662,6 +1741,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5352958571798197664, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5691243874327788079, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1768,11 +1851,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
---- !u!4 &1481185740 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4684403152539725594, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-  m_PrefabInstance: {fileID: 1398335883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1481185742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2060,6 +2138,7 @@ Transform:
   m_Children:
   - {fileID: 1899614190}
   - {fileID: 1034148285}
+  - {fileID: 834646014}
   m_Father: {fileID: 794412167}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2163,10 +2242,6 @@ MonoBehaviour:
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  RootTransformObject: {fileID: 0}
-  RootAIMetadata: {fileID: 0}
-  RootAnimator: {fileID: 0}
-  AStarSeeker: {fileID: 0}
 --- !u!114 &1899614192
 MonoBehaviour:
   m_ObjectHideFlags: 0
