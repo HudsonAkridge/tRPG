@@ -51,7 +51,7 @@ public class WanderAction : AnimationAction
     public override EActionStatus Perform()
     {
         //Check if we need to create a new wandering path from our starting position (so we don't wander too far)
-        if (_forceCreateNewPath ||(_pathToWander is null && !_isCalculatingPath))
+        if (_forceCreateNewPath || (_pathToWander is null && !_isCalculatingPath))
         {
             ResetPathfinding();
             var randomPath = RandomPath.Construct(OurPosition, 50000);
@@ -99,9 +99,13 @@ public class WanderAction : AnimationAction
 
         // Direction to the next waypoint
         // Normalize it so that it has a length of 1 world unit
-        var directionToGo = (_pathToWander.vectorPath[_currentWaypoint] - OurPosition).normalized;
+        var nextWaypoint = _pathToWander.vectorPath[_currentWaypoint];
+        var directionToGo = (nextWaypoint - OurPosition).normalized;
         // Multiply the direction by our desired speed to get a velocity
         var velocity = directionToGo * MoveSpeed * speedFactor;
+
+        //Turn us in the direction we need for traveling
+        OurRootTransform.LookAt(nextWaypoint, OurRootTransform.up);
 
         OurPosition += velocity * Time.deltaTime;
 
